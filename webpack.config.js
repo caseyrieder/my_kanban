@@ -7,7 +7,10 @@ var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
-  entry: [path.join(ROOT_PATH, 'app/main')],
+  entry: [path.resolve(ROOT_PATH, 'app/main.jsx')],
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js',
@@ -22,11 +25,29 @@ var common = {
   },
 };
 
-var mergeConfig = merge.bind(null, common);
-
 if(TARGET === 'build') {
-  module.exports = mergeConfig({
+  module.exports = merge(common, {
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel?stage=1',
+          include: path.resolve(ROOT_PATH, 'app'),
+        },
+      ],
+    },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          // This will have an effect on the React lib size
+          'NODE_ENV': JSON.stringify('production'),
+        }
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+      }),
       new HtmlWebpackPlugin({
         title: 'Kanban app'
       }),
@@ -38,13 +59,22 @@ if(TARGET === 'dev') {
   var IP = '0.0.0.0';
   var PORT = 8080;
 
-  module.exports = mergeConfig({
+  module.exports = merge(common, {
     ip: IP,
     port: PORT,
     entry: [
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
-      'webpack/hot/dev-server',
+      'webpack/hot/only-dev-server',
     ],
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['react-hot', 'babel?stage=1'],
+          include: path.resolve(ROOT_PATH, 'app'),
+        },
+      ],
+    },
     output: {
       path: __dirname,
       filename: 'bundle.js',
