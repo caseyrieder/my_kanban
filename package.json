@@ -1,0 +1,29 @@
+{
+  "name": "survivejs",
+  "version": "1.0.0",
+  "description": "kanban tutorial",
+  "main": "index.js",
+  "scripts": {
+    "build": "TARGET=build webpack",
+    "start": "TARGET=dev node dev-server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caseyrieder/kanban_app.git"
+  },
+  "author": "caseyrieder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caseyrieder/kanban_app/issues"
+  },
+  "homepage": "https://github.com/caseyrieder/kanban_app#readme",
+  "devDependencies": {
+    "css-loader": "^0.15.1",
+    "html-webpack-plugin": "^1.5.2",
+    "node-libs-browser": "^0.5.2",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.10.0",
+    "webpack-dev-server": "^1.10.1",
+    "webpack-merge": "^0.1.1"
+  }
+}
