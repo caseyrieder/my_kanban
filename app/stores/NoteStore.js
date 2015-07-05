@@ -4,14 +4,15 @@ import NoteActions from '../actions/NoteActions';
 class NoteStore {
 	constructor() {
 		this.bindActions(NoteActions);
-
-		this.notes = [];
+	}
+	init(data) {
+		this.setState(data || {notes: []});
 	}
 	create(task) {
 		const notes = this.notes;
 
 		this.setState({
-			notes: notes.concat({task})
+			notes: notes.concat({task}),
 		});
 	}
 	update({id, task}) {
@@ -22,7 +23,7 @@ class NoteStore {
 		this.setState({notes});
 	}
 	remove(id) {
-		const note = this.notes;
+		const notes = this.notes;
 
 		this.setState({
 			notes: notes.slice(0, id).concat(notes.slice(id + 1)),
