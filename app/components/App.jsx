@@ -7,7 +7,11 @@ import LaneActions from '../actions/LaneActions';
 import LaneStore from '../stores/LaneStore';
 import persist from '../decorators/persist';
 import {storage, storageName, getInitialData} from '../libs/storage';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 
+
+@DragDropContext(HTML5Backend)
 @persist(storage, storageName, () => JSON.parse(alt.takeSnapshot()))
 export default class App extends React.Component {
   constructor() {

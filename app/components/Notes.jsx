@@ -1,5 +1,8 @@
 import React from 'react';
 import Editable from './Editable';
+import Note from './Note';
+import NoteDndActions from '../actions/NoteDndActions';
+
 
 export default class Notes extends React.Component {
 	constructor(props: {
@@ -12,13 +15,17 @@ export default class Notes extends React.Component {
 		var notes = this.props.items;
 
 		return (
-			<ul className='notes'>{notes.map((note, i) =>
-				<li className='note' key={'note' + i}>
-					<Editable
-						value={note.task}
-						onEdit={this.props.onEdit.bind(null, i)} />
-				</li>
-			)}</ul>
+      <ul className='notes'>{notes.map((note, i) =>
+        <Note onMove={NoteDndActions.move} className='note'
+          key={'note-' + note.id} data={note}>
+          <Editable
+            value={note.task}
+            onEdit={this.props.onEdit.bind(null, i)} />
+        </Note>
+		  )}</ul>
 		);
+	}
+	onMoveNote(source, target) {
+		console.log('source', source, 'target', target);
 	}
 }	
