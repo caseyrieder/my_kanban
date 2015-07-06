@@ -7,7 +7,7 @@ var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
-  entry: [path.resolve(ROOT_PATH, 'app/main.jsx')],
+  entry: [path.resolve(ROOT_PATH, 'app/main')],
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
@@ -23,6 +23,11 @@ var common = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Kanban app',
+    }),
+  ],
 };
 
 if(TARGET === 'build') {
@@ -39,17 +44,14 @@ if(TARGET === 'build') {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          // This will have an effect on the React lib size
+          // This has effect on the react lib size
           'NODE_ENV': JSON.stringify('production'),
         }
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false
+          warnings: false,
         },
-      }),
-      new HtmlWebpackPlugin({
-        title: 'Kanban app'
       }),
     ],
   });
@@ -70,22 +72,10 @@ if(TARGET === 'dev') {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: ['react-hot', 'babel', 'flowcheck', 'babel?stage=1$blacklist=flow'],
+          loaders: ['react-hot', 'babel', 'flowcheck', 'babel?stage=1&blacklist=flow'],
           include: path.resolve(ROOT_PATH, 'app'),
         },
       ],
     },
-    output: {
-      path: __dirname,
-      filename: 'bundle.js',
-      publicPath: '/',
-    },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new HtmlWebpackPlugin(),
-    ],
   });
 }
-
-
