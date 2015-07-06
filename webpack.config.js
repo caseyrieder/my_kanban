@@ -16,14 +16,6 @@ var common = {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js',
   },
-  module: {
-    loaders: [
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-      },
-    ],
-  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Kanban app',
@@ -37,7 +29,7 @@ if(TARGET === 'build') {
       loaders: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
+          loader: ExtractTextPlugin.extract('style', 'css')
         },
         {
           test: /\.jsx?$/,
@@ -46,7 +38,6 @@ if(TARGET === 'build') {
         },
       ],
     },
-    plugins: [
     plugins: [
       new ExtractTextPlugin('styles.css'),
       new webpack.DefinePlugin({
