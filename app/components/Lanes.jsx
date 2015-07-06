@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lane from './Lane';
 
-export default class Lanes extends React.component {
+export default class Lanes extends React.Component {
   constructor(props: {
     items: Array;
   }) {

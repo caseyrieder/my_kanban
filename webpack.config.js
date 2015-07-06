@@ -64,7 +64,7 @@ if(TARGET === 'dev') {
     port: PORT,
     entry: [
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
-      'webpack/hot/only-dev-server',
+      'webpack/hot/dev-server',
     ],
     module: {
       loaders: [
