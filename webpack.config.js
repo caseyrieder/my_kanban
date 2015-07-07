@@ -23,6 +23,7 @@ var common = {
   ],
 };
 
+
 if(TARGET === 'build') {
   module.exports = merge(common, {
     module: {
@@ -55,6 +56,7 @@ if(TARGET === 'build') {
   });
 }
 
+
 if(TARGET === 'dev') {
   var IP = '0.0.0.0';
   var PORT = 8080;
@@ -67,6 +69,17 @@ if(TARGET === 'dev') {
       'webpack/hot/dev-server',
     ],
     module: {
+      preLoaders: [
+        {
+          test: /\.css$/,
+          loader: 'csslint',
+        },
+        {
+          test: /\.jsx?$/,
+          loader: 'eslint-loader',
+          include: path.resolve(ROOT_PATH, 'app'),
+        },
+      ],
       loaders: [
         {
           test: /\.css$/,

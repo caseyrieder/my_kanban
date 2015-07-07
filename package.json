@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "TARGET=build webpack",
-    "start": "TARGET=dev node lib/dev_server.js"
+    "start": "TARGET=dev node lib/dev_server.js",
+    "lint": "npm run lint-js && npm run lint-css",
+    "lint-js": "eslint . --ext .js --ext .jsx",
+    "lint-css": "csslint app/stylesheets --quiet"
   },
   "repository": {
     "type": "git",
@@ -19,8 +22,14 @@
   "homepage": "https://github.com/caseyrieder/kanban_app#readme",
   "devDependencies": {
     "babel-core": "^5.6.15",
+    "babel-eslint": "^3.1.23",
     "babel-loader": "^5.2.2",
     "css-loader": "^0.15.1",
+    "csslint": "^0.10.0",
+    "csslint-loader": "^0.2.0",
+    "eslint": "^0.24.0",
+    "eslint-loader": "^0.14.1",
+    "eslint-plugin-react": "^2.6.4",
     "extract-text-webpack-plugin": "^0.8.2",
     "flowcheck": "^0.2.7",
     "flowcheck-loader": "^1.0.0",

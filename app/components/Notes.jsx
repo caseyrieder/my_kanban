@@ -14,7 +14,7 @@ export default class Notes extends React.Component {
 	render() {
 		var notes = this.props.items;
 
-		return (
+    return (
       <ul className='notes'>{notes.map((note, i) =>
         <Note onMove={NoteDndActions.move} className='note'
           key={'note-' + note.id} data={note}>
@@ -22,10 +22,10 @@ export default class Notes extends React.Component {
             value={note.task}
             onEdit={this.props.onEdit.bind(null, i)} />
         </Note>
-		  )}</ul>
+      )}</ul>
 		);
 	}
 	onMoveNote(source, target) {
 		console.log('source', source, 'target', target);
 	}
-}	
+}

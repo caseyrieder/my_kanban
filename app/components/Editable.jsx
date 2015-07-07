@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default class Note extends React.Component {
+
+export default class Editable extends React.Component {
   constructor(props: {
- 	   value: string;
+    value: string;
     onEdit: Function;
   }) {
     super(props);
